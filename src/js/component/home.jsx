@@ -4,10 +4,10 @@ import React, { useState } from "react";
 
 //create your first component
 const Home = () => {
-//Definimos los estados 
-	//task guarda lo escrito en el input
+	//Definimos los estados 
+	//Task guarda lo escrito en el input
 	const [task, setTask] = useState("");
-	//savetask guarda las tareas en un array
+	//Savetask guarda las tareas en un array
 	const [saveTask, setSaveTask] = useState([]);
 
 	//Guarda lo que escribimos en el input (Usamos un objeto que verificamos en el navegador, el objeto es el eveto a partir del evento buscamos el valor)
@@ -24,35 +24,38 @@ const Home = () => {
 		}
 	}
 	//Funcion que borra tareas de la lista (Realmente solo filtramos)
-	function handleDelete (index) {
-		let filterTask = saveTask.filter((item, indexFilter) => index !== indexFilter  )
+	function handleDelete(index) {
+		let filterTask = saveTask.filter((item, indexFilter) => index !== indexFilter)
 		setSaveTask(filterTask)
 	}
 	return (
 
 		<div className="container d-flex flex-column justify-content-center">
-			<h1 className="text-center">TO DO LIST</h1>
+			<h1 className="text-center display-2 text-secondary">TO DO LIST</h1>
 			<div className="row justify-content-center">
 				<div className="col-6 text-center">
-					<input onChange={handleTask} value={task} onKeyDown={handleTaskList} className="w-100 rounded border-secondary" placeholder="Añadir Tarea" />
+					<input onChange={handleTask} value={task} onKeyDown={handleTaskList} className="w-100 rounded border-light fs-4 text-secondary " placeholder="Añadir Tarea" />
 				</div>
-				<ol>
-					{/* Esta funcion Map agrega las tareas visualmente a la lista */}
-					{
-						saveTask.map((item, index) => {
-							return (<li className="border-bottom d-flex justify-content-between"  key={index}>
-								<span>{item}</span> <i onClick={() => handleDelete(index)} className="fa-solid fa-trash"></i> </li>)
-						})
-					}
-				</ol>
-				{/* Señalamos la cantidad de tareas guardadas */}
-				<p>
-				{saveTask.length >= 0 ? `There are ${saveTask.length} task.` : `There are no task`}
-				</p>
 			</div>
+			<div className="row justify-content-center">
+				<div className="col-6 ">
+					<ol className="list-unstyled fs-4 ">
+						{/* Esta funcion Map agrega las tareas visualmente a la lista */}
+						{
+							saveTask.map((item, index) => {
+								return (<li className="border-bottom mt-2 ms-0  d-flex justify-content-between" key={index}>
+									<span className="text-secondary ">{item}</span> <i onClick={() => handleDelete(index)} className="fa-solid fa-trash  text-danger"></i> </li>)
+							})
+						}
+					</ol>
+					{/* Señalamos la cantidad de tareas guardadas */}
+					<p className="text-secondary ">
+						{saveTask.length > 0 ? `There are ${saveTask.length} task.` : `There are no task`}
+					</p>
+				</div>
+			</div>
+
 		</div>
-
-
 	);
 };
 
